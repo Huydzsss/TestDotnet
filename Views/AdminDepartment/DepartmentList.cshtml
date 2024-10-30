@@ -1,0 +1,84 @@
+@model PagedList.IPagedList<Asp.Net_MvcWeb_Pj3.Aptech.Models.Department>
+
+@using PagedList.Mvc
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Department List";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Actions</th> <!-- Thêm cột cho hành động -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var department in Model) 
+        {
+            <tr>
+                <td>@department.Id</td>
+                <td>@department.Name</td>
+                <td>
+                    <a href="/admin/Department/add">Thêm</a>
+                    <a href="/admin/Department/edit?id=@department.Id">Sửa</a>
+                    <a href="/admin/Department/delete?id=@department.Id" onclick="return confirm('Bạn có chắc chắn muốn xóa phòng ban này?');">Xóa</a>
+                </td>
+            </tr>
+        } 
+    </tbody>
+</table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+<!-- Hiển thị phân trang -->
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+            <a class="page-link" href="?page=@(Model.PageNumber - 1)">Previous</a>
+        </li>
+
+        @for (int i = 1; i <= Model.PageCount; i++)
+        {
+            <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                <a class="page-link" href="?page=@i">@i</a>
+            </li>
+        }
+
+        <li class="page-item @(Model.PageNumber == Model.PageCount ? "disabled" : "")">
+            <a class="page-link" href="?page=@(Model.PageNumber + 1)">Next</a>
+        </li>
+    </ul>
+</nav>
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 70%;
+        box-shadow: 0 0 10px lightgray;
+        margin: 0 auto;
+    }
+
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background: darkgray;
+        color: white;
+    }
+
+    tr:hover {
+        background-color: lightcyan;
+    }
+</style>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <script src="https://fomantic-ui.com/javascript/library/jquery.min.js" type="text/javascript"></script>
+    <link href="https://fomantic-ui.com/dist/semantic.min.css" rel="stylesheet" type="text/css">
+    <script src="https://fomantic-ui.com/dist/semantic.min.js" type="text/javascript"></script>
+
+    <script>
+        $(function () {
+            $('.hamburger').click(function (e) {
+                const menu = $(this).parent();
+                $(this).toggleClass('active');
+                menu.toggleClass('open');
+                e.preventDefault();
+            });
+
+            $('.ui.dropdown').dropdown();
+            $('.ui.sidebar').sidebar('attach events', '.toggle.button');
+        });
+    </script>
+
+    <style>
+        .hamburger {
+            display: none;
+        }
+
+        
+
+            .hamburger span {
+                display: block;
+                height: 3px;
+                background: #000;
+                margin: 0 0 3px;
+            }
+
+            .ui.stackable.menu .item:not(.header) {
+                display: none;
+            }
+
+            .ui.stackable.menu.open .item {
+                display: block;
+            }
+
+            .ui.stackable.menu.open {
+                height: inherit;
+            }
+        }
+
+        .ui.menu.inverted .ui.dropdown .menu.inverted > .item {
+            background: #1b1c1d;
+            color: white;
+        }
+
+        .ui.menu.inverted .dropdown.item .menu {
+            background: #1b1c1d;
+            color: white;
+        }
+
+        .ui.menu.inverted .ui.dropdown .menu > .item:hover {
+            background: rgba(0, 0, 0, .95) !important;
+            color: rgba(0, 0, 0, .05) !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ui inverted left vertical sidebar menu huge">
+        <a class="item">
+            <i class="home icon"></i>
+            Dashboard
+        </a>
+        <a class="item">
+            <i class="icon cog"></i>
+            Cài Đặt
+        </a>
+
+        @if (User.IsInRole("Employee"))
+        {
+            <a class="item">
+                <i class="icon user"></i>
+                Nhân Viên
+            </a>
+            <a class="item">
+                <i class="home icon"></i>
+                Quảng Cáo
+            </a>
+        }
+        else if (User.IsInRole("department"))
+        {
+            <a class="item">
+                <i class="icon smile"></i>
+                Khách Hàng
+            </a>
+            <a class="item">
+                <i class="icon calendar"></i>
+                Nhà Sản Xuất
+            </a>
+            <a class="item">
+                <i class="icon calendar"></i>
+                Sản Phẩm
+            </a>
+        }
+
+        <a class="item">
+            <i class="icon comment alternate"></i>
+            Phản Hồi
+        </a>
+        <a class="item">
+            <i class="icon calendar"></i>
+            Đơn Hàng
+        </a>
+        <a class="item">
+            <i class="calendar icon"></i>
+            Thể Loại
+        </a>
+    </div>
+
+    
+
+        @RenderBody()
+    </div>
+</body>
+
+</html>

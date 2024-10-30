@@ -1,0 +1,107 @@
+@model PagedList.IPagedList<Asp.Net_MvcWeb_Pj3.Aptech.Models.Employee>
+
+@using PagedList.Mvc
+@* @using PagedList.Mvc.Core; *@
+@* @using X.PagedList.Mvc.Core; *@
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Employee List";
+}
+
+<div class="ui container">
+    <table class="ui table hover">
+    <caption>Table of Employees</caption>
+    <thead>
+        <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Salary</th>
+        <th>Status</th>
+        <th>Johning Date</th>
+        <th>Department</th>
+        <th>Menu</th>
+    </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var Employee in Model)
+        {
+            <tr>
+                    <td>@Employee.Id</td>
+            <td>@Employee.Name</td>
+            <td>@Employee.Salary</td>
+            <td>@Employee.Status</td>
+            <td>@Employee.JoiningDateVi</td>
+            <td>@Employee.Department.Name</td>
+                <td>
+                    <a href="/admin/Employ/add"                title="Add"><i class="icon plus"></i></a>
+                    <a href="/admin/Employ/edit?id=@Employee.Id"   title="Edit"><i class="icon pencil"></i></a>
+                    <a href="/admin/Employ/delete?id=@Employee.Id" title="Delete"><i class="icon trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+</div>
+
+
+
+@* Có vẻ như là mình dùng mã Asp.Net MVC cũ sẽ ko có được trên Asp.Net Core *@
+@*
+@Html.PagedListPager(
+Model,
+page => Url.Action(
+"Index",
+new {
+page,
+sortOrder = ViewBag.CurrentSort,
+currentFilter = ViewBag.CurrentFilter
+}
+)
+) *@
+
+<!-- Hiển thị phân trang -->
+@* https://dev.to/bytehide/pagination-in-c-complete-guide-with-easy-code-examples-3ma2
+
+Kết quả cho thấy : Phân Trang Thủ Công Vẫn Hơn !!!
+Tự mình kiểm soát Pagination Links *@
+<div style="overflow: auto;">
+    <nav aria-label="Page navigation" class="ui left floated">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    <ul class="pagination ui menu">
+
+        <li class="page-item">
+
+            <a class="page-link item" href="?page=@(Model.PageNumber - 1)">Previous</a>
+
+        </li>
+
+        @for (int i = 1; i <= Model.PageCount; i++)
+
+        {
+            <li class="page-item">
+
+                <a class="page-link item" href="?page=@i" >@i</a>
+
+            </li>
+        }
+
+        <li class="page-item">
+
+            <a class="page-link item" href="?page=@(Model.PageNumber + 1)">Next</a>
+
+        </li>
+
+    </ul>
+
+    </nav>
+
+    
+</div>
+
+
+
+

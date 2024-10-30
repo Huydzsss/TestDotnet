@@ -1,0 +1,51 @@
+@model Asp.Net_MvcWeb_Pj3.Aptech.Models.Department
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Department Add";
+}
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="ui container">
+    <div class="ui segments">
+        <div class="ui segment">
+            <h5 class="ui header">
+                <i class="icon plus"></i> Form Add Department
+            </h5>
+        </div>
+        <form method="post" action="/admin/Department/add" class="ui form segment">
+
+            @* ID: Hidden field *@
+            <input type="hidden" asp-for="Id" />
+
+            <div class="ui field">
+                <label>Name:</label>
+                <input type="text" asp-for="Name" class="form-control" />
+            </div>
+
+            @* Nếu cần radio cho status *@
+            @* 
+            <div class="ui field">
+                <label>Status:</label>
+                <input type="radio" asp-for="Status" value="1" /> New
+                <input type="radio" asp-for="Status" value="0" /> Old
+            </div>
+            *@
+
+            <br class="clear_float">
+
+            <div style="overflow: auto;">
+                <button class="ui button primary" type="submit" style="float: right;">
+                    <i class="icon save"></i> Save
+                </button>
+                <button class="ui button" type="reset" style="float: right; margin-right: 10px;">
+                    <i class="icon undo"></i> Reset
+                </button>
+                <a href="/admin/Department/index" class="ui button primary" style="float: right; margin-right: 10px;">
+                    <i class="icon list"></i> Department List
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

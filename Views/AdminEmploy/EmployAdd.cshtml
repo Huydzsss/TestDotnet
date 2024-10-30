@@ -1,0 +1,73 @@
+@model Asp.Net_MvcWeb_Pj3.Aptech.Models.Employee
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Employee Add";
+}
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="ui container">
+    <div class="ui segments">
+        <div class="ui segment">
+            <h5 class="ui header">
+                <i class="icon plus"></i> Form Add Employee
+            </h5>
+        </div>
+        <form method="post" action="/admin/Employ/add" class="ui form segment">
+
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="ui field">
+                <label>Name:</label>
+                <input type="text" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="ui field">
+                <label>Salary:</label>
+                <input type="number" asp-for="Salary" class="form-control" min="10000" />
+                <span asp-validation-for="Salary" class="text-danger"></span>
+            </div>
+
+            <div class="ui field inline">
+                <label>Status:</label>
+                <input type="checkbox" asp-for="Status" value="true" />
+               
+                <!-- Để gửi false khi checkbox không được chọn -->
+            </div>
+
+
+            <div class="ui field">
+                <label>Joining Date:</label>
+                <input type="date" asp-for="JoiningDate" class="form-control" />
+                <span asp-validation-for="JoiningDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="DepartmentId">Department:</label>
+                <select asp-for="DepartmentId"
+                    asp-items="@(new SelectList((List<Department>)ViewData["DepartmentList"], "Id", "Name"))"
+                    class="form-control" required>
+                    <option value="">-- Select Department --</option>
+                </select>
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+
+
+
+
+            <div style="overflow: auto; margin-top: 20px;">
+                <button class="ui button primary" type="submit" style="float: right;">
+                    <i class="icon save"></i> Save
+                </button>
+                <button class="ui button" type="reset" style="float: right; margin-right: 10px;">
+                    <i class="icon undo"></i> Reset
+                </button>
+                <a href="/admin/Employ/list" class="ui button primary" style="float: right; margin-right: 10px;">
+                    <i class="icon list"></i> Employee List
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
